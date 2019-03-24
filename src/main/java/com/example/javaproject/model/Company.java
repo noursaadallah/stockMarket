@@ -1,6 +1,11 @@
 package com.example.javaproject.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "companies")
@@ -11,11 +16,14 @@ public class Company {
     private String name;
     private double value;
     private String sector;
+    @ManyToOne
+    private Manager manager;
+    @OneToMany(cascade=CascadeType.ALL , mappedBy="company")
+    @JsonIgnore
+    private List<Share> shares;
+    
     public Company() {
-    }
-
-    public Company(String name) {
-        this.name = name;
+    	shares = new ArrayList<Share>();
     }
 
     public Integer getId() {

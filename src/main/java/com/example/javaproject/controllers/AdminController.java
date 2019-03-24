@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.example.javaproject.model.User;
-import com.example.javaproject.repositories.UserRepository;
+import com.example.javaproject.model.Admin;
+import com.example.javaproject.repositories.AdminRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,29 +18,29 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Controller
-@RequestMapping("users")
-public class UserController {
+@RequestMapping("admin")
+public class AdminController {
 	
     @Autowired
-    private UserRepository userRepository;
+    private AdminRepository adminRepository;
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public List<User> getUsers() {
-		List<User> users = new ArrayList<User>();
-		Iterable<User> _users = userRepository.findAll();
-		_users.forEach(users::add);
-		return users;
+	public List<Admin> getAdmins() {
+		List<Admin> admins = new ArrayList<Admin>();
+		Iterable<Admin> _admins = adminRepository.findAll();
+		_admins.forEach(admins::add);
+		return admins;
 	}
 
-	@RequestMapping(value="/{name}" ,method = RequestMethod.GET)
+	@RequestMapping(value="/{login}" ,method = RequestMethod.GET)
 	//@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public ResponseEntity<User> getUserByName(@PathVariable("name")String name) {
-		User user = userRepository.findByName(name);
-		if(user == null)
-			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<User>(user,HttpStatus.OK);
+	public ResponseEntity<Admin> getAdminByLogin(@PathVariable("login")String login) {
+		Admin admin = adminRepository.findByLogin(login);
+		if(admin == null)
+			return new ResponseEntity<Admin>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Admin>(admin,HttpStatus.OK);
 	}
 }

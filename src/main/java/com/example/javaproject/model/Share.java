@@ -8,9 +8,11 @@ public class Share {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private int percent;
+    private double percentage;
+    @ManyToOne
     private Company company;
-    private Investor owner;
+    @ManyToOne
+    private Investor investor;
     private Boolean forSale; // true if the share is currently for sale
     private double sellPrice;
     private double percentToSell; // the percentage of the sale if the owner does not sell all his shares
