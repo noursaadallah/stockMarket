@@ -1,0 +1,25 @@
+1. Go to : https://start.spring.io/
+2. Select Gradle and Add : JPA, Web, SQL Server
+3. Download
+4. Edit application.properties
+
+	spring.datasource.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+	spring.jpa.hibernate.dialect=org.hibernate.dialect.SQLServer2012Dialect
+	spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=javaproject
+	spring.datasource.username=datawarehouse
+	spring.datasource.password=datawarehouse
+	spring.jpa.hibernate.ddl-auto=create
+	spring.datasource.initialize=true
+	spring.jpa.database=SQL_SERVER
+	spring.jpa.show-sql=true
+
+possible hibernate strategies : create, none, validate, update, create-drop
+5. Edit build.gradle & add:
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+
+6. Start SQL Server Express
+7. Run commands :
+	Gradlew build
+	gradlew eclipse
+

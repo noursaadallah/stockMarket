@@ -18,6 +18,7 @@ public class Investor {
     @OneToMany(cascade=CascadeType.ALL , mappedBy="investor")
     @JsonIgnore
     private List<Share> shares;
+    private Boolean validated;
 
     public Investor() {
     	shares = new ArrayList<Share>();
@@ -30,4 +31,45 @@ public class Investor {
     public void setId(Integer id) {
         this.id = id;
     }
+
+
+	public String getLogin() {
+		return login;
+	}
+
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+
+	public String getPwd() {
+		return pwd;
+	}
+
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+
+
+	public List<Share> getShares() {
+		return shares;
+	}
+
+
+	public void setShares(List<Share> shares) {
+		this.shares = shares;
+	}
+
+
+	public Boolean isValidated() {
+		return validated;
+	}
+
+
+	public void setValidated(Boolean validated) {
+		this.validated = validated;
+	}
+    
 }
