@@ -24,8 +24,14 @@ public class Investor {
     	shares = new ArrayList<Share>();
     }
 
+    public Investor(String login, String pwd) {
+		super();
+		this.login = login;
+		this.pwd = pwd;
+		this.validated = false;
+	}
 
-    public Integer getId() {
+	public Integer getId() {
         return id;
     }
     public void setId(Integer id) {

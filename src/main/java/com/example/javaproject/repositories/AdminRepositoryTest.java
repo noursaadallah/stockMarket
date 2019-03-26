@@ -13,8 +13,9 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AdminRepositoryTest {
-    @Autowired
-    private AdminRepository adminRepository;
+	
+	@Autowired
+	private AdminRepository adminRepository;
 //    @Before
 //    public void setUp() throws Exception {
 //        Admin admin= new Admin("admin", "admin");

@@ -1,3 +1,4 @@
+=========================================== STEPS ===============================================================
 1. Go to : https://start.spring.io/
 2. Select Gradle and Add : JPA, Web, SQL Server
 3. Download
@@ -23,3 +24,6 @@ possible hibernate strategies : create, none, validate, update, create-drop
 	Gradlew build
 	gradlew eclipse
 
+
+=========================================== INDICATIONS ===============================================================
+services contains ONLY the business logic (no DAL, no repositories, no web)

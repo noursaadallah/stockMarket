@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.example.javaproject.model.Admin;
 import com.example.javaproject.repositories.AdminRepository;
+import com.example.javaproject.repositories.InvestorRepository;
+import com.example.javaproject.repositories.RepositoryFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +20,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Controller
-@RequestMapping("admin")
+@RequestMapping("admins")
 public class AdminController {
 	
-    @Autowired
-    private AdminRepository adminRepository;
+	@Autowired
+	private AdminRepository adminRepository;
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
