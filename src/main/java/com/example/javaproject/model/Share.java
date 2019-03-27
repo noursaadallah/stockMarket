@@ -9,22 +9,91 @@ public class Share {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private double percentage;
+    private double value;
     @ManyToOne
     private Company company;
     @ManyToOne
     private Investor investor;
     private Boolean forSale; // true if the share is currently for sale
     private double sellPrice;
-    private double percentToSell; // the percentage of the sale if the owner does not sell all his shares
     
     public Share() {
     }
 
+    
+    public Share(double percentage, double value, Company company) {
+		super();
+		this.percentage = percentage;
+		this.company = company;
+		this.value = value;
+	}
 
-    public Integer getId() {
+
+	public Integer getId() {
         return id;
     }
     public void setId(Integer id) {
         this.id = id;
     }
+
+
+	public double getPercentage() {
+		return percentage;
+	}
+
+
+	public void setPercentage(double percentage) {
+		this.percentage = percentage;
+	}
+
+
+	public double getValue() {
+		return value;
+	}
+
+
+	public void setValue(double value) {
+		this.value = value;
+	}
+
+
+	public Company getCompany() {
+		return company;
+	}
+
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+
+	public Investor getInvestor() {
+		return investor;
+	}
+
+
+	public void setInvestor(Investor investor) {
+		this.investor = investor;
+	}
+
+
+	public Boolean getForSale() {
+		return forSale;
+	}
+
+
+	public void setForSale(Boolean forSale) {
+		this.forSale = forSale;
+	}
+
+
+	public double getSellPrice() {
+		return sellPrice;
+	}
+
+
+	public void setSellPrice(double sellPrice) {
+		this.sellPrice = sellPrice;
+	}
+    
 }

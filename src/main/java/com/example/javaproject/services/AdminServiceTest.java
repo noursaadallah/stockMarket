@@ -25,7 +25,7 @@ public class AdminServiceTest {
     @Test
     public void testValidateInvestor(){
 
-    	Investor investor = new Investor("investor" , "investor");
+    	Investor investor = new Investor("investor" , "investor" , "investor");
 //      //save investor, verify has ID value after save
         assertNull(investor.getId());//null before save
         investorRepository.save(investor);

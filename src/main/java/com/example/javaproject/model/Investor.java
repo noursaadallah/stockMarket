@@ -15,6 +15,7 @@ public class Investor {
     private Integer id;
     private String login;
     private String pwd;
+    private String name;
     @OneToMany(cascade=CascadeType.ALL , mappedBy="investor")
     @JsonIgnore
     private List<Share> shares;
@@ -24,10 +25,11 @@ public class Investor {
     	shares = new ArrayList<Share>();
     }
 
-    public Investor(String login, String pwd) {
+    public Investor(String login, String pwd, String name) {
 		super();
 		this.login = login;
 		this.pwd = pwd;
+		this.name = name;
 		this.validated = false;
 	}
 
@@ -58,6 +60,13 @@ public class Investor {
 		this.pwd = pwd;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public List<Share> getShares() {
 		return shares;
@@ -76,6 +85,18 @@ public class Investor {
 
 	public void setValidated(Boolean validated) {
 		this.validated = validated;
+	}
+	
+	public void buyShare(Share share, Investor investor) {
+		share.setInvestor(this);
+		share.setForSale(false);
+		this.shares.add(share);
+		investor.shares.remove(share);
+	}
+	
+	public void setShareOffer(Share share , double price) {
+		share.setForSale(true);
+		share.setSellPrice(price);
 	}
     
 }

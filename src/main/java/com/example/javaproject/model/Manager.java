@@ -15,6 +15,7 @@ public class Manager {
     private Integer id;
     private String login;
     private String pwd;
+    private String name;
     @OneToMany(cascade=CascadeType.ALL , mappedBy="manager")
     @JsonIgnore
     private List<Company> companies;
@@ -50,6 +51,30 @@ public class Manager {
 
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<Company> getCompanies() {
+		return companies;
+	}
+
+	public void setCompanies(List<Company> companies) {
+		this.companies = companies;
+	}
+	
+	public void addCompany(Company company) {
+		this.companies.add(company);
+	}
+	
+	public void removeCompany(Company company) {
+		this.companies.remove(company);
 	}
 
 	@Override
