@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.example.javaproject.model.Admin;
 import com.example.javaproject.model.Company;
+import com.example.javaproject.model.Investor;
 import com.example.javaproject.model.Manager;
 import com.example.javaproject.repositories.AdminRepository;
 import com.example.javaproject.repositories.CompanyRepository;
 import com.example.javaproject.repositories.InvestorRepository;
 import com.example.javaproject.repositories.ManagerRepository;
 import com.example.javaproject.repositories.RepositoryFactory;
+import com.example.javaproject.services.AdminService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,8 @@ public class AdminController {
 	@Autowired
 	private ManagerRepository managerRepository;
 	@Autowired
-	private CompanyRepository companyRepository;
+	private InvestorRepository investorRepository;
+	private AdminService adminService = new AdminService();
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
@@ -71,5 +74,14 @@ public class AdminController {
 		manager.addCompany(company);
 		company.createShares();
 		managerRepository.save(manager);
+	}
+	
+	@RequestMapping(value="/validateInvestor/{investorLogin}" ,method = RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public void validateInvestor(@PathVariable("investorLogin") String investorLogin) {
+		Investor investor = investorRepository.findByLogin(investorLogin);
+		adminService.validateInvestorProfile(investor);
+		investorRepository.save(investor);
 	}
 }
