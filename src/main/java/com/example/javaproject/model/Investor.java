@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "investors")
@@ -25,7 +27,10 @@ public class Investor {
     	shares = new ArrayList<Share>();
     }
 
-    public Investor(String login, String pwd, String name) {
+    @JsonCreator
+    public Investor(@JsonProperty("login") String login, 
+					@JsonProperty("pwd") String pwd, 
+					@JsonProperty("name") String name) {
 		super();
 		this.login = login;
 		this.pwd = pwd;
