@@ -19,13 +19,12 @@ public class Share {
     
     public Share() {
     }
-
-    
-    public Share(double percentage, double value, Company company) {
+   
+    public Share(double percentage, double value) {
 		super();
 		this.percentage = percentage;
-		this.company = company;
 		this.value = value;
+		this.forSale = false;
 	}
 
 

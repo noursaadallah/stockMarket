@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "managers")
@@ -24,11 +26,15 @@ public class Manager {
     	companies = new ArrayList<Company>();
     }
 
-    public Manager(String login, String pwd) {
-    	this();
+	@JsonCreator
+	public Manager( @JsonProperty("login") String login, 
+					@JsonProperty("pwd") String pwd,
+					@JsonProperty("name") String name ) {
+		this();
         this.login = login;
         this.pwd = pwd;
-    }
+        this.name = name;
+	}
 
     public Integer getId() {
         return id;
@@ -71,10 +77,12 @@ public class Manager {
 	
 	public void addCompany(Company company) {
 		this.companies.add(company);
+		company.setManager(this);
 	}
 	
 	public void removeCompany(Company company) {
 		this.companies.remove(company);
+		company.setManager(null);
 	}
 
 	@Override

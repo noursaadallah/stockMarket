@@ -30,9 +30,6 @@ public class AdminServiceTest {
         assertNull(investor.getId());//null before save
         investorRepository.save(investor);
         assertNotNull(investor.getId());
-        int id = investor.getId();
-        investor = investorRepository.findByLogin("investor");
-        assertNotNull(investor);
         assertEquals(false, investor.isValidated());
         
         int res = adminService.validateInvestorProfile(investor);

@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "companies")
@@ -16,6 +18,7 @@ public class Company {
     private String name;
     private double value;
     private String sector;
+    private int sharesCount;
     @ManyToOne
     private Manager manager;
     @OneToMany(cascade=CascadeType.ALL , mappedBy="company")
@@ -23,20 +26,31 @@ public class Company {
     private List<Share> shares;
     
     public Company() {
-    	shares = new ArrayList<Share>();
+    	this.shares = new ArrayList<Share>();
     }
 
-    public Company(String name, double value, String sector, Manager manager, int sharesCount) {
+    @JsonCreator
+    public Company(@JsonProperty("name") String name, 
+    				@JsonProperty("value") double value, 
+    				@JsonProperty("sector") String sector,
+    				@JsonProperty("sharesCount") int sharesCount) {
 		super();
-		if(sharesCount <= 0)
-			sharesCount=1;
 		this.name = name;
 		this.value = value;
 		this.sector = sector;
-		this.manager = manager;
-		for(int i = 0 ; i < sharesCount ; i++)
-			this.shares.add(new Share(100.0/sharesCount , value / sharesCount , this));
+		this.sharesCount = sharesCount;
 	}
+    
+    public void createShares() {
+    	this.shares = new ArrayList<Share>();
+		if(this.sharesCount <= 0)
+			this.sharesCount=1;
+		for(int i = 0 ; i < this.sharesCount ; i++)
+			this.shares.add(new Share(100.0/this.sharesCount , value / this.sharesCount));
+		for(Share s : this.shares) {
+			s.setCompany(this);
+		}
+    }
 
 
 	public Integer getId() {
