@@ -24,7 +24,7 @@ public class Share {
 		super();
 		this.percentage = percentage;
 		this.value = value;
-		this.forSale = false;
+		this.forSale = true;
 	}
 
 

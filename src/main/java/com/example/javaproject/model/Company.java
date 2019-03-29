@@ -42,7 +42,7 @@ public class Company {
 	}
     
     public void createShares() {
-    	this.shares = new ArrayList<Share>();
+    	this.shares = new ArrayList<Share>(sharesCount);
 		if(this.sharesCount <= 0)
 			this.sharesCount=1;
 		for(int i = 0 ; i < this.sharesCount ; i++)

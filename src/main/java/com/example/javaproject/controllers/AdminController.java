@@ -66,11 +66,10 @@ public class AdminController {
 	@RequestMapping(value="/createCompany/{managerLogin}" ,method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public void createManager(@RequestBody Company company , @PathVariable("managerLogin") String managerLogin) {
+	public void createCompany(@RequestBody Company company , @PathVariable("managerLogin") String managerLogin) {
 		Manager manager = managerRepository.findByLogin(managerLogin);
 		manager.addCompany(company);
-		managerRepository.save(manager);
 		company.createShares();
-		companyRepository.save(company);
+		managerRepository.save(manager);
 	}
 }
