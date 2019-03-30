@@ -13,15 +13,6 @@ public class AdminService {
 		return 0; // success
 	}
 	
-	public Manager createManager(String login , String pwd, String name) {
-		return new Manager(login,pwd, name);
-	}
-	
-	public void assignManagerToCompany(Manager manager, Company company) {
-		manager.addCompany(company);
-		company.setManager(manager);
-	}
-	
 	public Company createCompany(String name, double value, String sector, int sharesCount) {
 		Company company = new Company(name, value, sector , sharesCount);
 		company.createShares();

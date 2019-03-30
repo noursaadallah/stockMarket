@@ -59,4 +59,11 @@ public class InvestorController {
 	public void signup(@RequestBody Investor investor) {
 		investorRepository.save(investor);
 	}
+	
+	@RequestMapping(value="/shareSaleOffer" ,method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public void makeShareSaleOffer(@RequestBody Investor investor) {
+		investorRepository.save(investor);
+	}
 }

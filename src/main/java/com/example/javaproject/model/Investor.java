@@ -91,17 +91,5 @@ public class Investor {
 	public void setValidated(Boolean validated) {
 		this.validated = validated;
 	}
-	
-	public void buyShare(Share share, Investor investor) {
-		share.setInvestor(this);
-		share.setForSale(false);
-		this.shares.add(share);
-		investor.shares.remove(share);
-	}
-	
-	public void setShareOffer(Share share , double price) {
-		share.setForSale(true);
-		share.setSellPrice(price);
-	}
     
 }

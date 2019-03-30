@@ -12,7 +12,7 @@ public class Share {
     private double value;
     @ManyToOne
     private Company company;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private Investor investor;
     private Boolean forSale; // true if the share is currently for sale
     private double sellPrice;
@@ -25,6 +25,7 @@ public class Share {
 		this.percentage = percentage;
 		this.value = value;
 		this.forSale = true;
+		this.sellPrice = value;
 	}
 
 

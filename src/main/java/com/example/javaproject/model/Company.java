@@ -52,7 +52,6 @@ public class Company {
 		}
     }
 
-
 	public Integer getId() {
         return id;
     }

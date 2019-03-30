@@ -10,6 +10,6 @@ import com.example.javaproject.model.Company;
 
 
 public interface CompanyRepository extends CrudRepository<Company, Integer> {
-    Company findByName(String login);
+    Company findByName(String name);
     List<Company> findBySector(String sector);
 }

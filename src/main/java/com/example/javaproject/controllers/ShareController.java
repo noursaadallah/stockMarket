@@ -14,16 +14,22 @@ import com.example.javaproject.model.Company;
 import com.example.javaproject.model.Investor;
 import com.example.javaproject.model.Manager;
 import com.example.javaproject.model.Share;
+import com.example.javaproject.model.Transaction;
 import com.example.javaproject.repositories.AdminRepository;
 import com.example.javaproject.repositories.CompanyRepository;
 import com.example.javaproject.repositories.InvestorRepository;
 import com.example.javaproject.repositories.ManagerRepository;
 import com.example.javaproject.repositories.RepositoryFactory;
 import com.example.javaproject.repositories.ShareRepository;
+import com.example.javaproject.repositories.TransactionRepository;
+import com.example.javaproject.services.InvestorService;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
+import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +38,13 @@ import org.springframework.http.ResponseEntity;
 @RequestMapping("shares")
 public class ShareController {
 	
+	private InvestorService investorService = new InvestorService();
 	@Autowired
 	private ShareRepository shareRepository;
+	@Autowired
+	private InvestorRepository investorRepository;
+	@Autowired
+	private TransactionRepository transactionRepository;
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
@@ -50,5 +61,20 @@ public class ShareController {
 	@ResponseBody
 	public List<Share> saleOffers() {
 		return shareRepository.findByForSale(true);
+	}
+	
+	@RequestMapping(value="/buyShare/fromCompany/{buyerId}/{shareId}" ,method = RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public void buyShare( @PathVariable("buyerId") Integer buyerId , @PathVariable("shareId") Integer shareId ) {
+		if(investorRepository.existsById(buyerId) && shareRepository.existsById(shareId)) {
+			Investor buyer = investorRepository.findById(buyerId).get();
+			Share share = shareRepository.findById(shareId).get();
+			if(share.getForSale()) {
+				Transaction tx = investorService.buyShareFromCompany(buyer, share);
+				shareRepository.save(share);
+				transactionRepository.save(tx);
+			}
+		}
 	}
 }
