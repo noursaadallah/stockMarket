@@ -13,11 +13,13 @@ import com.example.javaproject.model.Admin;
 import com.example.javaproject.model.Company;
 import com.example.javaproject.model.Investor;
 import com.example.javaproject.model.Manager;
+import com.example.javaproject.model.Share;
 import com.example.javaproject.repositories.AdminRepository;
 import com.example.javaproject.repositories.CompanyRepository;
 import com.example.javaproject.repositories.InvestorRepository;
 import com.example.javaproject.repositories.ManagerRepository;
 import com.example.javaproject.repositories.RepositoryFactory;
+import com.example.javaproject.repositories.ShareRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,36 +29,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Controller
-@RequestMapping("investors")
-public class InvestorController {
+@RequestMapping("shares")
+public class ShareController {
 	
 	@Autowired
-	private InvestorRepository investorRepository;
+	private ShareRepository shareRepository;
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public List<Investor> getInvestors() {
-		List<Investor> investors = new ArrayList<Investor>();
-		Iterable<Investor> _investors = investorRepository.findAll();
-		_investors.forEach(investors::add);
-		return investors;
-	}
-
-	@RequestMapping(value="/{login}" ,method = RequestMethod.GET)
-	//@ResponseStatus(HttpStatus.OK)
-	@ResponseBody
-	public ResponseEntity<Investor> getInvestorByLogin(@PathVariable("login")String login) {
-		Investor investor = investorRepository.findByLogin(login);
-		if(investor == null)
-			return new ResponseEntity<Investor>(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<Investor>(investor,HttpStatus.OK);
+	public List<Share> getShares() {
+		List<Share> shares = new ArrayList<Share>();
+		Iterable<Share> _shares = shareRepository.findAll();
+		_shares.forEach(shares::add);
+		return shares;
 	}
 	
-	@RequestMapping(value="/signup" ,method = RequestMethod.POST)
+	@RequestMapping(value="/saleOffers" ,method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public void signup(@RequestBody Investor investor) {
-		investorRepository.save(investor);
+	public List<Share> saleOffers() {
+		return shareRepository.findByForSale(true);
 	}
 }
