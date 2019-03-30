@@ -63,7 +63,7 @@ public class ShareController {
 		return shareRepository.findByForSale(true);
 	}
 	
-	@RequestMapping(value="/buyShare/fromCompany/{buyerId}/{shareId}" ,method = RequestMethod.PUT)
+	@RequestMapping(value="/buyShare/{buyerId}/{shareId}" ,method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public void buyShare( @PathVariable("buyerId") Integer buyerId , @PathVariable("shareId") Integer shareId ) {
@@ -71,10 +71,20 @@ public class ShareController {
 			Investor buyer = investorRepository.findById(buyerId).get();
 			Share share = shareRepository.findById(shareId).get();
 			if(share.getForSale()) {
-				Transaction tx = investorService.buyShareFromCompany(buyer, share);
+				Transaction tx = investorService.buyShare(buyer, share);
 				shareRepository.save(share);
 				transactionRepository.save(tx);
 			}
+		}
+	}
+	
+	@RequestMapping(value="/sellShare/{shareId}/{value}" ,method = RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public void makeShareSaleOffer(@PathVariable("shareId") Integer shareId, @PathVariable("value") double value  ) {
+		if(shareRepository.existsById(shareId)) {
+			Share share = shareRepository.findById(shareId).get();
+			shareRepository.save(share);
 		}
 	}
 }

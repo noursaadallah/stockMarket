@@ -68,8 +68,8 @@ public class InvestorServiceTest {
     	investorRepository.save(investor);
     	assertNotNull(investor.getId());
     	
-    	//============================== Test buy share from company ===============================================\\
-    	Transaction tx = investorService.buyShareFromCompany(investor, share);
+    	//============================== Test buy share ===============================================\\
+    	Transaction tx = investorService.buyShare(investor, share);
     	shareRepository.save(share); // propagate edit to the share
     	assertNotNull(share.getInvestor());
     	transactionRepository.save(tx);
