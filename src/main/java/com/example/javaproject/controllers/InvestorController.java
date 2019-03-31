@@ -53,6 +53,27 @@ public class InvestorController {
 		return new ResponseEntity<Investor>(investor,HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/findByName/{name}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public List<Investor> findByName(@PathVariable("name")String name) {
+		return investorRepository.findByName(name);
+	}
+	
+	@RequestMapping(value = "/findByValidated/{validated}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public List<Investor> findByValidated(@PathVariable("validated")boolean validated) {
+		return investorRepository.findByValidated(validated);
+	}
+	
+	@RequestMapping(value = "/findByValidated-Name/{name}/{validated}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public List<Investor> findByNameValidated(@PathVariable("name")String name,@PathVariable("validated")boolean validated) {
+		return investorRepository.findByNameAndValidated(name,validated);
+	}
+	
 	@RequestMapping(value="/signup" ,method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
